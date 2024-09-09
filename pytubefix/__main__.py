@@ -205,8 +205,8 @@ class YouTube:
             # To force an update to the js file, we clear the cache and retry
             self._js = None
             self._js_url = None
-            pytube.__js__ = None
-            pytube.__js_url__ = None
+            pytubefix.__js__ = None
+            pytubefix.__js_url__ = None
             extract.apply_signature(stream_manifest, self.vid_info, self.js)
 
         # build instances of :class:`Stream <Stream>`
@@ -298,7 +298,7 @@ class YouTube:
             .get("playerCaptionsTracklistRenderer", {})
             .get("captionTracks", [])
         )
-        return [pytube.Caption(track) for track in raw_tracks]
+        return [pytubefix.Caption(track) for track in raw_tracks]
 
     @property
     def captions(self) -> pytube.CaptionQuery:
@@ -306,7 +306,7 @@ class YouTube:
 
         :rtype: :class:`CaptionQuery <CaptionQuery>`.
         """
-        return pytube.CaptionQuery(self.caption_tracks)
+        return pytubefix.CaptionQuery(self.caption_tracks)
 
     @property
     def streams(self) -> StreamQuery:
@@ -365,7 +365,7 @@ class YouTube:
             # Check_availability will raise the correct exception in most cases
             #  if it doesn't, ask for a report.
             self.check_availability()
-            raise exceptions.PytubeError(
+            raise exceptions.PytubefixError(
                 (
                     f'Exception while accessing title of {self.watch_url}. '
                     'Please file a bug report at https://github.com/pytube/pytube'
